@@ -17,6 +17,7 @@ setup(
     description='Old ScraperWiki datastore',
     keywords='datastore scraping',
     install_requires=[
+        "ConcurrentLogHandler==0.8.3"
     ],
     packages=find_packages(exclude=['ez_setup']),
     include_package_data=True,
