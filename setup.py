@@ -8,7 +8,7 @@ setup(
     long_description="""\
 """,
     classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    namespace_packages=['swx', 'swx.datastore'],
+    namespace_packages=['swx.datastore'],
     zip_safe=False,
     author='Various at ScraperWiki, Ross Jones',
     author_email='ross@mailbolt.com',
