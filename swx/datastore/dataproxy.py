@@ -23,7 +23,6 @@ except:
     pass
 
 import logging
-import logging.config
 
 try:
     import json
@@ -33,26 +32,12 @@ except:
 # ScraperWiki
 import datalib
 
-# note: there is a symlink from /var/www/scraperwiki to the scraperwiki directory
-# which allows us to get away with being crap with the paths
-
-configfile = '/var/www/scraperwiki/uml/uml.cfg'
-config = ConfigParser.ConfigParser()
-config.readfp(open(configfile))
-dataproxy_secret = config.get('dataproxy', 'dataproxy_secret')
-
-parser = optparse.OptionParser()
-parser.add_option("--setuid", action="store_true")
-parser.add_option("--pidfile")
-parser.add_option("--logfile")
-parser.add_option("--toaddrs", default="")
-poptions, pargs = parser.parse_args()
 
 class ProxyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     __base         = BaseHTTPServer.BaseHTTPRequestHandler
     __base_handle  = __base.handle
 
-    server_version = "DataProxy/ScraperWiki_0.0.1"
+    server_version = "DataProxy/ScraperWiki_1.0.0"
     rbufsize       = 0
 
     def ident(self, params):
@@ -252,45 +237,4 @@ def syslog_addr():
         address = ('localhost', 514)
     return address
 
-
-if __name__ == '__main__':
-
-    # daemon mode
-    if os.fork() == 0 :
-        os.setsid()
-        sys.stdin = open('/dev/null')
-        if os.fork() == 0 :
-            ppid = os.getppid()
-            while ppid != 1 :
-                time.sleep(1)
-                ppid = os.getppid()
-        else :
-            os._exit (0)
-    else :
-        os.wait()
-        sys.exit (1)
-
-    pf = open(poptions.pidfile, 'w')
-    pf.write('%d\n' % os.getpid())
-    pf.close()
-        
-    if poptions.setuid:
-        gid = grp.getgrnam("nogroup").gr_gid
-        os.setregid(gid, gid)
-        uid = pwd.getpwnam("nobody").pw_uid
-        os.setreuid(uid, uid)
-
-    logging.config.fileConfig(configfile)
-
-    port = config.getint('dataproxy', 'port')
-    ProxyHandler.protocol_version = "HTTP/1.0"
-    httpd = ProxyHTTPServer(('', port), ProxyHandler)
-    httpd.max_children = 160
-    sa = httpd.socket.getsockname()
-
-    logger = logging.getLogger('dataproxy')
-
-    logger.info("Serving HTTP on %s port %s" %(sa[0], sa[1]))
-
-    httpd.serve_forever()
 

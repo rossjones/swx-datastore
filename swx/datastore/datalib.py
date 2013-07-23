@@ -1,4 +1,4 @@
-from twisted.python import log
+#from twisted.python import log
 
 import ConfigParser
 import hashlib
@@ -23,7 +23,6 @@ except:
     pass
 
 import logging
-import logging.config
 from sqlite_functions import distance_on_spherical_earth
 
 try:

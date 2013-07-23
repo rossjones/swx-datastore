@@ -22,6 +22,8 @@ setup(
     include_package_data=True,
     package_data={'ckan': ['i18n/*/LC_MESSAGES/*.mo']},
     entry_points="""
+    [console_scripts]
+    datastore = swx.datastore.main:run_server
 """,
     test_suite = 'nose.collector',
 )
