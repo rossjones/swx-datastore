@@ -34,10 +34,10 @@ def run_server():
             os.wait()
             sys.exit (1)
 
-    pf = open(options.pidfile, 'w')
+    pf = open(options.pidfile or "/tmp/swx_datastore.pid", 'w')
     pf.write('%d\n' % os.getpid())
     pf.close()
-        
+
     if options.setuid:
         gid = grp.getgrnam("nogroup").gr_gid
         os.setregid(gid, gid)

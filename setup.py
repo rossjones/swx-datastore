@@ -19,7 +19,8 @@ setup(
     dependency_links = ['http://github.com/rossjones/swx-common/tarball/master#egg=swx-common-0.1.0'],
     install_requires=[
         "ConcurrentLogHandler==0.8.3",
-        "swx-common>=0.1"
+        "swx-common>=0.1",
+        "nose",
     ],
     packages=find_packages(exclude=['ez_setup']),
     include_package_data=True,
