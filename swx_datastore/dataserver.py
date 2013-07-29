@@ -17,9 +17,9 @@ import zmq
 def read_socket(sock):
     # TODO: Really want a blocking read here.
     try:
-        return socket.recv()
+        return sock.recv()
     except Exception, e:
-        pass
+        print e
 
 def worker_routine(worker_url, context):
     socket = context.socket(zmq.REP)
