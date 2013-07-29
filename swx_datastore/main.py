@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import time
@@ -46,6 +47,10 @@ def run_server():
 
     #logging.config.fileConfig(configfile)
 
+    from dataserver import run_server
+
+    run_server()
+    """
     port = 5009 #config.getint('dataproxy', 'port')
     ProxyHandler.protocol_version = "HTTP/1.0"
     httpd = ProxyHTTPServer(('', port), ProxyHandler)
@@ -58,3 +63,4 @@ def run_server():
 
     httpd.serve_forever()
 
+    """

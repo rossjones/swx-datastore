@@ -21,6 +21,7 @@ setup(
         "ConcurrentLogHandler==0.8.3",
         "swx-common>=0.1",
         "nose",
+        "pyzmq",
     ],
     packages=find_packages(exclude=['ez_setup']),
     include_package_data=True,
